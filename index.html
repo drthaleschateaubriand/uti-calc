@@ -551,6 +551,7 @@
     <div>3. Associação de Medicina Intensiva Brasileira (AMIB). Protocolo de Analgesia, Sedação e Bloqueio Neuromuscular em UTI. Publicado em julho de 2020.</div>
     <div>4. Fresenius Kabi Brasil. Bula Profissional — Propofol. Concentração: dez mg/mL. Sedação em UTI: zero vírgula três a quatro mg/kg/h. Dose máxima recomendada: quatro mg/kg/h.</div>
     <div>5. Protocolo de Sedação, Analgesia e Bloqueio Neuromuscular — Complexo Hospitalar do Trabalhador (CHT), Curitiba, baseado nas diretrizes AMIB 2020.</div>
+    <div>6. Machado F, Mazza B, Silva E, Salomão R, Bernardo WM. Sepse: Sedação, Analgesia e Bloqueio Neuromuscular. Diretrizes Clínicas na Saúde Suplementar — AMIB / Sociedade Brasileira de Infectologia / Instituto Latino Americano de Sepse / ANS. Elaboração final: 31 de janeiro de 2011. [Doses de referência utilizadas para fentanil, midazolam, propofol e dexmedetomidina neste aplicativo.]</div>
   </div>
   <div class="footer-credits">
     <div>
@@ -608,14 +609,14 @@ const DRUGS = [
   { id: 'midazolam', name: 'Midazolam', cat: 'sedacao', color: '#0e7c5b',
     conc_mg_ml: 1, conc_display: '1 mg/mL',
     dilution: '2 amp (20 mL) + 80 mL SF0,9%',
-    unit: 'mg/kg/h', min_dose: 0.02, max_dose: 0.3, default_dose: 0.05, step: 0.01,
-    dose_is_per_min: false, access: 'AVP ou AVC', obs: 'Proteger da luz. Sedação profunda: até 0,3 mg/kg/h (AMIB 2020).' },
+    unit: 'mg/kg/h', min_dose: 0.01, max_dose: 0.6, default_dose: 0.05, step: 0.01,
+    dose_is_per_min: false, access: 'AVP ou AVC', obs: 'Proteger da luz. Range: 0,01 a 0,6 mg/kg/h (Diretriz AMIB/ANS Sepse 2011).' },
   { id: 'propofol', name: 'Propofol 1%', cat: 'sedacao', color: '#2e7d32',
     conc_mg_ml: 10, conc_display: '10 mg/mL',
     dilution: 'Não diluir — puro',
-    unit: 'mg/kg/h', min_dose: 0.3, max_dose: 4.0, default_dose: 1.0, step: 0.1,
+    unit: 'mg/kg/h', min_dose: 0.3, max_dose: 3.0, default_dose: 1.0, step: 0.1,
     dose_is_per_min: false, access: 'AVP ou AVC',
-    obs: 'Não diluir. Cautela acima de 4 mg/kg/h — risco de síndrome de infusão do propofol (AMIB 2020, bula Fresenius).' },
+    obs: 'Não diluir. Range: 0,3 a 3,0 mg/kg/h (Diretriz AMIB/ANS Sepse 2011). Cautela acima de 4 mg/kg/h — risco de síndrome de infusão.' },
   { id: 'dextrocetamina', name: 'Dextrocetamina', cat: 'sedacao', color: '#9c1a6a',
     conc_mg_ml: 5, conc_display: '5 mg/mL',
     dilution: '1 amp + 20 mL SF0,9%',
@@ -629,8 +630,8 @@ const DRUGS = [
   { id: 'dexmedetomidina', name: 'Dexmedetomidina', cat: 'sedacao', color: '#5a2d82',
     conc_mg_ml: 0.004, conc_display: '4 mcg/mL',
     dilution: '2 amp (2 mL) + 100 mL SF0,9%',
-    unit: 'mcg/kg/h', min_dose: 0.2, max_dose: 1, default_dose: 0.4, step: 0.1,
-    dose_is_per_min: false, is_mcg_per_h: true, access: 'AVP ou AVC', obs: 'Alerta de bradicardia acima de 0,7 mcg/kg/h (PADIS 2018).' },
+    unit: 'mcg/kg/h', min_dose: 0.2, max_dose: 0.7, default_dose: 0.4, step: 0.1,
+    dose_is_per_min: false, is_mcg_per_h: true, access: 'AVP ou AVC', obs: 'Range: 0,2 a 0,7 mcg/kg/h (Diretriz AMIB/ANS Sepse 2011). Bradicardia e hipotensão especialmente na hipovolemia.' },
   { id: 'rocuronio', name: 'Rocurônio', cat: 'bloqueio', color: '#c0001e',
     conc_mg_ml: 4, conc_display: '4 mg/mL',
     dilution: '8 amp + 60 mL SG5%',
