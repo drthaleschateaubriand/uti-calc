@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTI Calc — Dr. Thales Chateaubriand</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --surface2: #eef1f6;
+    --border: #d4dae6;
+    --accent: #1a56a0;
+    --accent2: #0e7c5b;
+    --warn: #c07000;
+    --danger: #c0001e;
+    --text: #1a1f2e;
+    --muted: #6b7590;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  header {
+    background: var(--accent);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .logo {
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  .logo span {
+    color: rgba(255,255,255,0.65);
+    font-weight: 400;
+    font-size: 11px;
+    display: block;
+    letter-spacing: 1px;
+    margin-top: 2px;
+    text-transform: none;
+  }
+
+  .header-right {
+    text-align: right;
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    font-family: var(--mono);
+    line-height: 1.5;
+  }
+
+  .header-right strong {
+    color: #ffffff;
+    font-size: 13px;
+    display: block;
+  }
+
+  .weight-bar {
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .weight-bar label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+
+  .weight-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    transition: border-color .2s;
+  }
+
+  .weight-input-wrap:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(26,86,160,0.1);
+  }
+
+  .weight-input-wrap input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    width: 70px;
+    text-align: right;
+  }
+
+  .weight-input-wrap span {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .weight-presets {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .preset-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 5px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .15s;
+    font-weight: 600;
+  }
+
+  .preset-btn:hover, .preset-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .filter-bar {
+    padding: 10px 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .filter-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all .15s;
+    font-weight: 600;
+  }
+
+  .filter-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .filter-btn.active { background: var(--accent2); border-color: var(--accent2); color: #fff; font-weight: 700; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: box-shadow .15s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--card-color, var(--accent));
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .drug-name {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: .3px;
+  }
+
+  .drug-cat {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .conc-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .dilution-info {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .dilution-info .di-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+    opacity: 0.7;
+    margin-bottom: 2px;
+    font-weight: 700;
+  }
+
+  .slider-section { margin-bottom: 10px; }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .slider-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    width: 28px;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    flex: 1;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--border);
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--card-color, var(--accent));
+    cursor: pointer;
+    transition: transform .1s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+
+  .slider-val {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    width: 62px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .result-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .result-box {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    padding: 9px 10px;
+    text-align: center;
+    transition: border-color .2s;
+  }
+
+  .result-box.active {
+    border-color: var(--card-color, var(--accent));
+    background: color-mix(in srgb, var(--card-color, var(--accent)) 6%, white);
+  }
+
+  .result-box .rb-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+
+  .result-box .rb-value {
+    font-family: var(--sans);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--card-color, var(--accent));
+    line-height: 1;
+  }
+
+  .result-box .rb-unit {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .range-bar-wrap { margin-top: 10px; }
+
+  .range-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--muted);
+    margin-bottom: 3px;
+    letter-spacing: .5px;
+  }
+
+  .range-bar-track {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .range-bar-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    border-radius: 3px;
+    background: var(--card-color, var(--accent));
+    transition: width .2s ease;
+  }
+
+  .dose-alert {
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    letter-spacing: .5px;
+    font-weight: 700;
+    display: none;
+  }
+
+  .dose-alert.warn {
+    background: rgba(192,112,0,0.08);
+    border: 1px solid rgba(192,112,0,0.35);
+    color: var(--warn);
+    display: block;
+  }
+
+  .dose-alert.danger {
+    background: rgba(192,0,30,0.08);
+    border: 1px solid rgba(192,0,30,0.35);
+    color: var(--danger);
+    display: block;
+  }
+
+  footer {
+    background: #1a1f2e;
+    color: rgba(255,255,255,0.55);
+    padding: 20px 32px;
+    font-size: 11px;
+    line-height: 1.7;
+    border-top: 3px solid var(--accent);
+  }
+
+  .footer-disclaimer {
+    background: rgba(192,0,30,0.12);
+    border: 1px solid rgba(192,0,30,0.3);
+    border-radius: 6px;
+    padding: 10px 16px;
+    color: #ffaaaa;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: .3px;
+    line-height: 1.6;
+  }
+
+  .footer-credits {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .footer-credits .author {
+    color: rgba(255,255,255,0.85);
+    font-weight: 700;
+    font-size: 12px;
+    font-family: var(--sans);
+    letter-spacing: .5px;
+  }
+
+  .footer-credits .crm {
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .mode-toggle {
+    display: flex;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-left: auto;
+  }
+
+  .mode-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .mode-btn.active { background: rgba(255,255,255,0.15); color: #fff; font-weight: 700; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; padding: 8px; }
+    .weight-bar { gap: 10px; }
+    .header-right { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    UTI<span style="display:inline;color:rgba(255,255,255,0.5)"> · </span>Calc
+    <span>Calculadora de Doses em Infusão Contínua</span>
+  </div>
+  <div class="header-right">
+    <strong>Dr. Thales Chateaubriand</strong>
+    Médico Intensivista · CRM 25.254 PE · RQE 4.668
+  </div>
+</header>
+
+<div class="weight-bar">
+  <label>Peso do Paciente</label>
+  <div class="weight-input-wrap">
+    <input type="number" id="weightInput" value="70" min="30" max="200" step="1">
+    <span>kg</span>
+  </div>
+  <div class="weight-presets">
+    <button class="preset-btn" onclick="setWeight(50)">50</button>
+    <button class="preset-btn" onclick="setWeight(60)">60</button>
+    <button class="preset-btn" onclick="setWeight(70)">70</button>
+    <button class="preset-btn" onclick="setWeight(80)">80</button>
+    <button class="preset-btn" onclick="setWeight(90)">90</button>
+    <button class="preset-btn" onclick="setWeight(100)">100</button>
+    <button class="preset-btn" onclick="setWeight(110)">110</button>
+    <button class="preset-btn" onclick="setWeight(120)">120</button>
+  </div>
+  <div class="mode-toggle" style="border-color:var(--border)">
+    <button class="mode-btn active" id="modeByMlh" onclick="setMode('mlh')" style="color:var(--muted)">mL/h</button>
+    <button class="mode-btn" id="modeByDose" onclick="setMode('dose')" style="color:var(--muted)">Dose</button>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCat('all', this)">Todos</button>
+  <button class="filter-btn" onclick="filterCat('vasoativa', this)">Vasoativas</button>
+  <button class="filter-btn" onclick="filterCat('sedacao', this)">Sedativos / Analgésicos</button>
+  <button class="filter-btn" onclick="filterCat('bloqueio', this)">Bloqueadores NM</button>
+  <button class="filter-btn" onclick="filterCat('outros', this)">Outros</button>
+</div>
+
+<div class="grid" id="drugGrid"></div>
+
+<footer>
+  <div class="footer-disclaimer">
+    AVISO: Esta ferramenta é um auxílio de cálculo e pode conter erros. Os valores gerados não substituem o julgamento clínico. A verificação das doses, diluições e adequação à condição do paciente é de responsabilidade exclusiva do médico assistente.
+  </div>
+  <div class="footer-credits">
+    <div>
+      <div class="author">Dr. Thales Chateaubriand</div>
+      <div class="crm">Médico Intensivista · CRM 25.254 PE · RQE 4.668</div>
+    </div>
+    <div style="color:rgba(255,255,255,0.25);font-size:10px;text-align:right">
+      Uso exclusivo profissional<br>Estratégias do Metabolismo
+    </div>
+  </div>
+</footer>
+
+<script>
+const DRUGS = [
+  { id: 'noradrenalina', name: 'Noradrenalina', cat: 'vasoativa', color: '#c0001e',
+    conc_mg_ml: 0.1, conc_display: '100 mcg/mL',
+    dilution: '5 amp (20 mL) + 180 mL SG5%',
+    unit: 'mcg/kg/min', min_dose: 0.05, max_dose: 2, default_dose: 0.1, step: 0.01,
+    dose_is_per_min: true, access: 'AVC obrigatório', obs: 'Proteger da luz. Não usar SF0,9%.' },
+  { id: 'dobutamina', name: 'Dobutamina', cat: 'vasoativa', color: '#c05000',
+    conc_mg_ml: 2, conc_display: '2000 mcg/mL',
+    dilution: '2 amp (40 mL) + 210 mL SG5%',
+    unit: 'mcg/kg/min', min_dose: 2.5, max_dose: 10, default_dose: 5, step: 0.5,
+    dose_is_per_min: true, access: 'AVP (altas doses: AVC)', obs: 'Proteger da luz.' },
+  { id: 'dopamina', name: 'Dopamina', cat: 'vasoativa', color: '#a06000',
+    conc_mg_ml: 2, conc_display: '2000 mcg/mL',
+    dilution: '10 amp (100 mL) + 150 mL SG5%',
+    unit: 'mcg/kg/min', min_dose: 2.5, max_dose: 20, default_dose: 5, step: 0.5,
+    dose_is_per_min: true, access: 'AVP (altas doses: AVC)', obs: 'Proteger da luz.' },
+  { id: 'epinefrina', name: 'Epinefrina', cat: 'vasoativa', color: '#8b0000',
+    conc_mg_ml: 0.1, conc_display: '100 mcg/mL',
+    dilution: '10 amp + 90 mL SF0,9%',
+    unit: 'mcg/kg/min', min_dose: 0.05, max_dose: 2, default_dose: 0.1, step: 0.01,
+    dose_is_per_min: true, access: 'AVC obrigatório', obs: 'Proteger da luz.' },
+  { id: 'vasopressina', name: 'Vasopressina', cat: 'vasoativa', color: '#6a1fa0',
+    conc_mg_ml: null, conc_display: '0,2 U/mL', conc_u_ml: 0.2,
+    dilution: '1 mL + 100 mL SF0,9%',
+    unit: 'U/min', min_dose: 0.01, max_dose: 0.04, default_dose: 0.02, step: 0.005,
+    dose_is_per_min: false, dose_not_weight: true, access: 'AVC obrigatório', obs: 'Validade 12h.' },
+  { id: 'nitroprussiato', name: 'Nitroprussiato', cat: 'vasoativa', color: '#1a56a0',
+    conc_mg_ml: 0.2, conc_display: '200 mcg/mL',
+    dilution: '1 amp (2 mL) + 250 mL SG5%',
+    unit: 'mcg/kg/min', min_dose: 5, max_dose: 300, default_dose: 20, step: 5,
+    dose_is_per_min: true, access: 'AVP (altas doses: AVC)', obs: 'Proteger da luz.' },
+  { id: 'nitroglicerina', name: 'Nitroglicerina', cat: 'vasoativa', color: '#0e7c5b',
+    conc_mg_ml: 0.2, conc_display: '200 mcg/mL',
+    dilution: '2 amp (10 mL) + 250 mL SG5%',
+    unit: 'mcg/kg/min', min_dose: 5, max_dose: 200, default_dose: 20, step: 5,
+    dose_is_per_min: true, access: 'AVP (altas doses: AVC)', obs: 'Proteger da luz.' },
+  { id: 'milrinone', name: 'Milrinone', cat: 'vasoativa', color: '#8b7200',
+    conc_mg_ml: 0.002, conc_display: '2 mg/mL',
+    dilution: '2 amp + 80 mL SG5%',
+    unit: 'mcg/kg/min', min_dose: 0.375, max_dose: 0.75, default_dose: 0.5, step: 0.025,
+    dose_is_per_min: true, access: 'AVP (altas doses: AVC)', obs: '' },
+  { id: 'midazolam', name: 'Midazolam', cat: 'sedacao', color: '#0e7c5b',
+    conc_mg_ml: 1, conc_display: '1 mg/mL',
+    dilution: '2 amp (20 mL) + 80 mL SF0,9%',
+    unit: 'mg/kg/h', min_dose: 0.02, max_dose: 0.1, default_dose: 0.05, step: 0.005,
+    dose_is_per_min: false, access: 'AVP ou AVC', obs: 'Proteger da luz.' },
+  { id: 'propofol', name: 'Propofol 1%', cat: 'sedacao', color: '#2e7d32',
+    conc_mg_ml: 10, conc_display: '10 mg/mL',
+    dilution: 'Não diluir — puro',
+    unit: 'mcg/kg/h', min_dose: 5, max_dose: 80, default_dose: 20, step: 5,
+    dose_is_per_min: false, is_mcg_per_h: true, access: 'AVP ou AVC',
+    obs: 'Não diluir. Não usar na via de hemácias/plasma.' },
+  { id: 'dextrocetamina', name: 'Dextrocetamina', cat: 'sedacao', color: '#9c1a6a',
+    conc_mg_ml: 5, conc_display: '5 mg/mL',
+    dilution: '1 amp + 20 mL SF0,9%',
+    unit: 'mg/kg/h', min_dose: 0.24, max_dose: 1.2, default_dose: 0.5, step: 0.06,
+    dose_is_per_min: false, access: 'AVP ou AVC', obs: 'Proteger da luz.' },
+  { id: 'fentanil', name: 'Fentanil', cat: 'sedacao', color: '#1a56a0',
+    conc_mg_ml: 0.008, conc_display: '8 mcg/mL',
+    dilution: '2 amp (20 mL) + 80 mL SF0,9%',
+    unit: 'mcg/kg/h', min_dose: 1, max_dose: 3, default_dose: 1.5, step: 0.1,
+    dose_is_per_min: false, is_mcg_per_h: true, access: 'AVP ou AVC', obs: '' },
+  { id: 'dexmedetomidina', name: 'Dexmedetomidina', cat: 'sedacao', color: '#5a2d82',
+    conc_mg_ml: 0.004, conc_display: '4 mcg/mL',
+    dilution: '2 amp (2 mL) + 100 mL SF0,9%',
+    unit: 'mcg/kg/h', min_dose: 0.2, max_dose: 1, default_dose: 0.4, step: 0.1,
+    dose_is_per_min: false, is_mcg_per_h: true, access: 'AVP ou AVC', obs: '' },
+  { id: 'rocuronio', name: 'Rocurônio', cat: 'bloqueio', color: '#c0001e',
+    conc_mg_ml: 4, conc_display: '4 mg/mL',
+    dilution: '8 amp + 60 mL SG5%',
+    unit: 'mg/kg/h', min_dose: 0.48, max_dose: 0.72, default_dose: 0.6, step: 0.06,
+    dose_is_per_min: false, access: 'AVP ou AVC', obs: '' },
+  { id: 'atracurio', name: 'Atracúrio', cat: 'bloqueio', color: '#a05500',
+    conc_mg_ml: 2, conc_display: '2 mg/mL',
+    dilution: '8 amp + 80 mL SG5%',
+    unit: 'mg/kg/h', min_dose: 0.24, max_dose: 1.2, default_dose: 0.6, step: 0.06,
+    dose_is_per_min: false, access: 'AVP ou AVC', obs: '' },
+  { id: 'pancuronio', name: 'Pâncurônio', cat: 'bloqueio', color: '#7a6000',
+    conc_mg_ml: 0.8, conc_display: '0,8 mg/mL',
+    dilution: '6 amp + 70 mL SF0,9%',
+    unit: 'mg/kg/h', min_dose: 0.06, max_dose: 0.12, default_dose: 0.08, step: 0.01,
+    dose_is_per_min: false, access: 'AVP ou AVC', obs: '' },
+  { id: 'heparina', name: 'Heparina', cat: 'outros', color: '#006080',
+    conc_mg_ml: null, conc_display: '100 UI/mL', conc_ui_ml: 100,
+    dilution: '1 amp (5 mL) + 250 mL SF0,9%',
+    unit: 'UI/kg/h', min_dose: 5, max_dose: 30, default_dose: 15, step: 1,
+    dose_is_per_min: false, is_heparin: true, access: 'AVP ou AVC', obs: '' },
+  { id: 'insulina', name: 'Insulina Regular', cat: 'outros', color: '#1a56a0',
+    conc_mg_ml: null, conc_display: '1 UI/mL', conc_ui_ml: 1,
+    dilution: '100 UI + 100 mL SF0,9%',
+    unit: 'UI/h', min_dose: 1, max_dose: 20, default_dose: 4, step: 0.5,
+    dose_is_per_min: false, dose_not_weight: true, is_insulin: true, access: 'AVP ou AVC',
+    obs: 'Validade 6h. Trocar equipo frequentemente.' },
+  { id: 'amiodarona_mnt', name: 'Amiodarona Manutenção', cat: 'outros', color: '#a03000',
+    conc_mg_ml: 3.6, conc_display: '3,6 mg/mL',
+    dilution: '6 amp + 230 mL SG5%',
+    unit: 'mg/h', min_dose: 50, max_dose: 75, default_dose: 60, step: 5,
+    dose_is_per_min: false, dose_not_weight: true, access: 'Preferencialmente AVC',
+    obs: 'Máx 1800 mg/24h. Proteger da luz.' },
+  { id: 'lidocaina', name: 'Lidocaína', cat: 'outros', color: '#4a7a00',
+    conc_mg_ml: 2, conc_display: '2 mg/mL',
+    dilution: '10 amp + 200 mL SF0,9%',
+    unit: 'mg/kg/min', min_dose: 1, max_dose: 4, default_dose: 2, step: 0.5,
+    dose_is_per_min: true, access: 'AVP ou AVC', obs: 'Validade 12h.' },
+];
+
+let weight = 70;
+let inputMode = 'mlh';
+let currentFilter = 'all';
+const sliderValues = {};
+DRUGS.forEach(d => { sliderValues[d.id] = d.default_dose; });
+
+function calcMlh(drug, dose) {
+  const w = weight;
+  if (drug.is_heparin) return (dose * w) / drug.conc_ui_ml;
+  if (drug.is_insulin) return dose / drug.conc_ui_ml;
+  if (drug.id === 'vasopressina') return (dose * 60) / drug.conc_u_ml;
+  if (drug.id === 'amiodarona_mnt') return dose / drug.conc_mg_ml;
+  if (drug.is_mcg_per_h) return (dose * w) / (drug.conc_mg_ml * 1000);
+  if (drug.dose_is_per_min) return (dose * w * 60) / (drug.conc_mg_ml * 1000);
+  if (drug.dose_not_weight) return dose / drug.conc_mg_ml;
+  return (dose * w) / drug.conc_mg_ml;
+}
+
+function fmt(n) {
+  if (n === undefined || isNaN(n)) return '--';
+  if (n < 0.01) return n.toFixed(4);
+  if (n < 0.1) return n.toFixed(3);
+  if (n < 10) return n.toFixed(2);
+  if (n < 100) return n.toFixed(1);
+  return Math.round(n).toString();
+}
+
+function buildGrid() {
+  const grid = document.getElementById('drugGrid');
+  grid.innerHTML = '';
+  const filtered = currentFilter === 'all' ? DRUGS : DRUGS.filter(d => d.cat === currentFilter);
+  filtered.forEach(drug => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = `card-${drug.id}`;
+    card.style.setProperty('--card-color', drug.color);
+    const dose = sliderValues[drug.id];
+    const mlh = calcMlh(drug, dose);
+    const pct = Math.min(100, ((dose - drug.min_dose) / (drug.max_dose - drug.min_dose)) * 100);
+    let alertHtml = '';
+    if (dose >= drug.max_dose) alertHtml = `<div class="dose-alert danger">DOSE MAXIMA ATINGIDA</div>`;
+    else if (dose >= drug.max_dose * 0.9) alertHtml = `<div class="dose-alert warn">Proximo da dose maxima</div>`;
+    const catLabels = { vasoativa: 'Droga Vasoativa', sedacao: 'Sedativo / Analgesico', bloqueio: 'Bloqueador NM', outros: 'Outros' };
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <div class="drug-name">${drug.name}</div>
+          <div class="drug-cat">${catLabels[drug.cat]}</div>
+        </div>
+        <div class="conc-badge">${drug.conc_display}</div>
+      </div>
+      <div class="dilution-info">
+        <div class="di-label">Diluicao</div>
+        ${drug.dilution}
+        ${drug.obs ? `<br><span style="color:var(--warn);font-size:10px">${drug.obs}</span>` : ''}
+        <br><span style="color:var(--muted);font-size:10px">Acesso: ${drug.access}</span>
+      </div>
+      <div class="slider-section">
+        <div class="slider-row">
+          <span class="slider-label">${drug.unit.split('/')[0].toUpperCase()}</span>
+          <input type="range" id="slider-${drug.id}"
+            min="${drug.min_dose}" max="${drug.max_dose}" step="${drug.step}"
+            value="${dose}"
+            oninput="onSliderChange('${drug.id}', this.value)">
+          <span class="slider-val" id="sval-${drug.id}">${fmt(dose)} <span style="font-size:9px;color:var(--muted)">${drug.unit}</span></span>
+        </div>
+      </div>
+      <div class="result-display">
+        <div class="result-box active">
+          <div class="rb-label">Dose Total/h</div>
+          <div class="rb-value" id="dose-total-${drug.id}">${getDoseTotal(drug, dose)}</div>
+          <div class="rb-unit" id="dose-unit-${drug.id}">${getDoseTotalUnit(drug)}</div>
+        </div>
+        <div class="result-box active">
+          <div class="rb-label">Vazao Bomba</div>
+          <div class="rb-value" id="mlh-${drug.id}">${fmt(mlh)}</div>
+          <div class="rb-unit">mL/h</div>
+        </div>
+      </div>
+      <div class="range-bar-wrap">
+        <div class="range-bar-labels">
+          <span>${drug.min_dose} ${drug.unit}</span>
+          <span>MAX: ${drug.max_dose} ${drug.unit}</span>
+        </div>
+        <div class="range-bar-track">
+          <div class="range-bar-fill" id="bar-${drug.id}" style="width:${pct}%;background:${drug.color}"></div>
+        </div>
+      </div>
+      ${alertHtml}
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function getDoseTotal(drug, dose) {
+  const w = weight;
+  if (drug.dose_not_weight || drug.is_insulin) {
+    if (drug.dose_is_per_min) return fmt(dose * 60);
+    return fmt(dose);
+  }
+  if (drug.dose_is_per_min) return fmt(dose * w * 60);
+  return fmt(dose * w);
+}
+
+function getDoseTotalUnit(drug) {
+  const base = drug.unit.split('/')[0];
+  if (drug.dose_not_weight || drug.is_insulin) return `${base}/h`;
+  return `${base}/h total`;
+}
+
+function onSliderChange(id, val) {
+  const drug = DRUGS.find(d => d.id === id);
+  sliderValues[id] = parseFloat(val);
+  updateCard(drug, parseFloat(val));
+}
+
+function updateCard(drug, dose) {
+  const mlh = calcMlh(drug, dose);
+  const pct = Math.min(100, ((dose - drug.min_dose) / (drug.max_dose - drug.min_dose)) * 100);
+  const sval = document.getElementById(`sval-${drug.id}`);
+  const mlhEl = document.getElementById(`mlh-${drug.id}`);
+  const barEl = document.getElementById(`bar-${drug.id}`);
+  const dtEl = document.getElementById(`dose-total-${drug.id}`);
+  if (sval) sval.innerHTML = `${fmt(dose)} <span style="font-size:9px;color:var(--muted)">${drug.unit}</span>`;
+  if (mlhEl) mlhEl.textContent = fmt(mlh);
+  if (barEl) barEl.style.width = `${pct}%`;
+  if (dtEl) dtEl.textContent = getDoseTotal(drug, dose);
+  const card = document.getElementById(`card-${drug.id}`);
+  let alertEl = card.querySelector('.dose-alert');
+  if (!alertEl) { alertEl = document.createElement('div'); alertEl.className = 'dose-alert'; card.appendChild(alertEl); }
+  alertEl.className = 'dose-alert';
+  if (dose >= drug.max_dose) { alertEl.className = 'dose-alert danger'; alertEl.textContent = 'DOSE MAXIMA ATINGIDA'; }
+  else if (dose >= drug.max_dose * 0.9) { alertEl.className = 'dose-alert warn'; alertEl.textContent = 'Proximo da dose maxima'; }
+}
+
+function setWeight(w) {
+  weight = w;
+  document.getElementById('weightInput').value = w;
+  document.querySelectorAll('.preset-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent) === w);
+  });
+  DRUGS.forEach(drug => updateCard(drug, sliderValues[drug.id]));
+}
+
+function setMode(m) {
+  inputMode = m;
+  document.getElementById('modeByMlh').classList.toggle('active', m === 'mlh');
+  document.getElementById('modeByDose').classList.toggle('active', m === 'dose');
+}
+
+function filterCat(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildGrid();
+}
+
+document.getElementById('weightInput').addEventListener('input', function() {
+  const w = parseFloat(this.value);
+  if (w >= 30 && w <= 200) setWeight(w);
+});
+
+buildGrid();
+</script>
+</body>
+</html>
