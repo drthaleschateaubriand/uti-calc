@@ -544,6 +544,14 @@
   <div class="footer-disclaimer">
     AVISO: Esta ferramenta é um auxílio de cálculo e pode conter erros. Os valores gerados não substituem o julgamento clínico. A verificação das doses, diluições e adequação à condição do paciente é de responsabilidade exclusiva do médico assistente.
   </div>
+  <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:12px 16px;margin-bottom:12px;font-size:10px;color:rgba(255,255,255,0.5);line-height:1.9;">
+    <div style="color:rgba(255,255,255,0.7);font-weight:700;font-size:11px;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Referências</div>
+    <div>1. Devlin JW, Skrobik Y, Gélinas C, et al. Clinical Practice Guidelines for the Prevention and Management of Pain, Agitation/Sedation, Delirium, Immobility, and Sleep Disruption in Adult Patients in the ICU. Crit Care Med. 2018;46(9):e825-e873. [Diretrizes PADIS/SCCM 2018]</div>
+    <div>2. Lewis K, Balas MC, Stollings JL, et al. A Focused Update to the Clinical Practice Guidelines for the Prevention and Management of Pain, Anxiety, Agitation/Sedation, Delirium, Immobility, and Sleep Disruption in Adult Patients in the ICU. Crit Care Med. 2025;53(3):e711-e727. [Atualização PADIS/SCCM 2025]</div>
+    <div>3. Associação de Medicina Intensiva Brasileira (AMIB). Protocolo de Analgesia, Sedação e Bloqueio Neuromuscular em UTI. Publicado em julho de 2020.</div>
+    <div>4. Fresenius Kabi Brasil. Bula Profissional — Propofol. Concentração: dez mg/mL. Sedação em UTI: zero vírgula três a quatro mg/kg/h. Dose máxima recomendada: quatro mg/kg/h.</div>
+    <div>5. Protocolo de Sedação, Analgesia e Bloqueio Neuromuscular — Complexo Hospitalar do Trabalhador (CHT), Curitiba, baseado nas diretrizes AMIB 2020.</div>
+  </div>
   <div class="footer-credits">
     <div>
       <div class="author">Dr. Thales Chateaubriand</div>
@@ -600,14 +608,14 @@ const DRUGS = [
   { id: 'midazolam', name: 'Midazolam', cat: 'sedacao', color: '#0e7c5b',
     conc_mg_ml: 1, conc_display: '1 mg/mL',
     dilution: '2 amp (20 mL) + 80 mL SF0,9%',
-    unit: 'mg/kg/h', min_dose: 0.02, max_dose: 0.1, default_dose: 0.05, step: 0.005,
-    dose_is_per_min: false, access: 'AVP ou AVC', obs: 'Proteger da luz.' },
+    unit: 'mg/kg/h', min_dose: 0.02, max_dose: 0.3, default_dose: 0.05, step: 0.01,
+    dose_is_per_min: false, access: 'AVP ou AVC', obs: 'Proteger da luz. Sedação profunda: até 0,3 mg/kg/h (AMIB 2020).' },
   { id: 'propofol', name: 'Propofol 1%', cat: 'sedacao', color: '#2e7d32',
     conc_mg_ml: 10, conc_display: '10 mg/mL',
     dilution: 'Não diluir — puro',
-    unit: 'mcg/kg/h', min_dose: 5, max_dose: 80, default_dose: 20, step: 5,
-    dose_is_per_min: false, is_mcg_per_h: true, access: 'AVP ou AVC',
-    obs: 'Não diluir. Não usar na via de hemácias/plasma.' },
+    unit: 'mg/kg/h', min_dose: 0.3, max_dose: 4.0, default_dose: 1.0, step: 0.1,
+    dose_is_per_min: false, access: 'AVP ou AVC',
+    obs: 'Não diluir. Cautela acima de 4 mg/kg/h — risco de síndrome de infusão do propofol (AMIB 2020, bula Fresenius).' },
   { id: 'dextrocetamina', name: 'Dextrocetamina', cat: 'sedacao', color: '#9c1a6a',
     conc_mg_ml: 5, conc_display: '5 mg/mL',
     dilution: '1 amp + 20 mL SF0,9%',
@@ -622,12 +630,11 @@ const DRUGS = [
     conc_mg_ml: 0.004, conc_display: '4 mcg/mL',
     dilution: '2 amp (2 mL) + 100 mL SF0,9%',
     unit: 'mcg/kg/h', min_dose: 0.2, max_dose: 1, default_dose: 0.4, step: 0.1,
-    dose_is_per_min: false, is_mcg_per_h: true, access: 'AVP ou AVC', obs: '' },
-  { id: 'rocuronio', name: 'Rocurônio', cat: 'bloqueio', color: '#c0001e',
+    dose_is_per_min: false, is_mcg_per_h: true, access: 'AVP ou AVC', obs: 'Alerta de bradicardia acima de 0,7 mcg/kg/h (PADIS 2018).' },, name: 'Rocurônio', cat: 'bloqueio', color: '#c0001e',
     conc_mg_ml: 4, conc_display: '4 mg/mL',
     dilution: '8 amp + 60 mL SG5%',
-    unit: 'mg/kg/h', min_dose: 0.48, max_dose: 0.72, default_dose: 0.6, step: 0.06,
-    dose_is_per_min: false, access: 'AVP ou AVC', obs: '' },
+    unit: 'mg/kg/h', min_dose: 0.3, max_dose: 1.2, default_dose: 0.6, step: 0.06,
+    dose_is_per_min: false, access: 'AVP ou AVC', obs: 'Titular pelo TOF. Range ampliado conforme prática clínica em SDRA grave.' },
   { id: 'atracurio', name: 'Atracúrio', cat: 'bloqueio', color: '#a05500',
     conc_mg_ml: 2, conc_display: '2 mg/mL',
     dilution: '8 amp + 80 mL SG5%',
