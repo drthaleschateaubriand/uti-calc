@@ -168,7 +168,7 @@ const DRUGS = [
     conc_display:'100 mcg/mL', conc_mcg_ml:100,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz. Nao usar SF 0,9%.',
     access:'AVC obrigatorio',
-    unit:'mcg/kg/min', min:0.05, max:2, def:0.1, step:0.01,
+    unit:'mcg/kg/min', min:0.01, max:3.0, def:0.1, step:0.01,
     mode:'mcg_kg_min' },
 
   { id:'dobutamina', name:'Dobutamina', cat:'vasoativa', color:'#c05000',
@@ -177,7 +177,7 @@ const DRUGS = [
     conc_display:'2000 mcg/mL', conc_mcg_ml:2000,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz.',
     access:'AVP (doses altas: AVC)',
-    unit:'mcg/kg/min', min:2.5, max:10, def:5, step:0.5,
+    unit:'mcg/kg/min', min:2.0, max:20.0, def:5.0, step:0.5,
     mode:'mcg_kg_min' },
 
   { id:'milrinone', name:'Milrinona', cat:'vasoativa', color:'#8b7200',
@@ -185,7 +185,7 @@ const DRUGS = [
     diluicao:'SG 5% — 2 amp (20 mL) + 80 mL | Vol final: 100 mL',
     conc_display:'200 mcg/mL', conc_mcg_ml:200,
     obs:'', access:'AVP (doses altas: AVC)',
-    unit:'mcg/kg/min', min:0.375, max:0.75, def:0.5, step:0.025,
+    unit:'mcg/kg/min', min:0.25, max:0.75, def:0.5, step:0.025,
     mode:'mcg_kg_min' },
 
   { id:'dopamina', name:'Dopamina', cat:'vasoativa', color:'#a06000',
@@ -194,7 +194,7 @@ const DRUGS = [
     conc_display:'2000 mcg/mL', conc_mcg_ml:2000,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz.',
     access:'AVP (doses altas: AVC)',
-    unit:'mcg/kg/min', min:2.5, max:20, def:5, step:0.5,
+    unit:'mcg/kg/min', min:5.0, max:20.0, def:5.0, step:0.5,
     mode:'mcg_kg_min' },
 
   { id:'nitroprussiato', name:'Nitroprussiato', cat:'vasoativa', color:'#1a56a0',
@@ -202,7 +202,7 @@ const DRUGS = [
     diluicao:'SG 5% — 1 amp (2 mL) + 248 mL | Vol final: 250 mL',
     conc_display:'200 mcg/mL', conc_mcg_ml:200,
     obs:'Proteger da luz.', access:'AVP (doses altas: AVC)',
-    unit:'mcg/kg/min', min:5, max:300, def:20, step:5,
+    unit:'mcg/kg/min', min:0.3, max:10.0, def:2.0, step:0.1,
     mode:'mcg_kg_min' },
 
   { id:'nitroglicerina', name:'Nitroglicerina', cat:'vasoativa', color:'#0e7c5b',
@@ -210,8 +210,8 @@ const DRUGS = [
     diluicao:'SG 5% — 2 amp (4 mL) + 246 mL | Vol final: 250 mL',
     conc_display:'200 mcg/mL', conc_mcg_ml:200,
     obs:'Proteger da luz.', access:'AVP (doses altas: AVC)',
-    unit:'mcg/kg/min', min:5, max:200, def:20, step:5,
-    mode:'mcg_kg_min' },
+    unit:'mcg/min', min:5, max:200, def:20, step:5,
+    mode:'mcg_min_flat' },
 
   { id:'epinefrina', name:'Epinefrina', cat:'vasoativa', color:'#8b0000',
     apresentacao:'Ampola (1 mg/mL — 1 mL)',
@@ -219,7 +219,7 @@ const DRUGS = [
     conc_display:'100 mcg/mL', conc_mcg_ml:100,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz.',
     access:'AVC obrigatorio',
-    unit:'mcg/kg/min', min:0.05, max:2, def:0.1, step:0.01,
+    unit:'mcg/kg/min', min:0.01, max:1.0, def:0.1, step:0.01,
     mode:'mcg_kg_min' },
 
   { id:'vasopressina', name:'Vasopressina', cat:'vasoativa', color:'#6a1fa0',
@@ -227,7 +227,7 @@ const DRUGS = [
     diluicao:'SF 0,9% — 1 mL + 99 mL | Vol final: 100 mL',
     conc_display:'0,2 U/mL', conc_u_ml:0.2,
     obs:'Validade 12h.', access:'AVC obrigatorio',
-    unit:'U/min', min:0.01, max:0.04, def:0.02, step:0.005,
+    unit:'UI/min', min:0.03, max:0.04, def:0.03, step:0.005,
     mode:'u_min_flat' },
 
   // SEDATIVOS / ANALGÉSICOS
@@ -254,7 +254,7 @@ const DRUGS = [
     diluicao:'SF 0,9% — 1 amp (10 mL) + 90 mL | Vol final: 100 mL',
     conc_display:'5 mg/mL', conc_mg_ml:5,
     obs:'Proteger da luz.', access:'AVP ou AVC',
-    unit:'mg/kg/h', min:0.24, max:1.2, def:0.5, step:0.06,
+    unit:'mg/kg/h', min:0.1, max:0.5, def:0.3, step:0.05,
     mode:'mg_kg_h' },
 
   { id:'fentanil', name:'Fentanil', cat:'sedacao', color:'#1a56a0',
@@ -279,26 +279,26 @@ const DRUGS = [
   { id:'rocuronio', name:'Rocurônio', cat:'bloqueio', color:'#c0001e',
     apresentacao:'Ampola (50 mg/5 mL)',
     diluicao:'SG 5% — 8 amp (40 mL) + 60 mL | Vol final: 100 mL',
-    conc_display:'4 mg/mL', conc_mg_ml:4,
+    conc_display:'4 mg/mL', conc_mcg_ml:4000,
     obs:'Titular pelo TOF. Range ampliado conforme pratica clinica em SDRA grave.',
     access:'AVP ou AVC',
-    unit:'mg/kg/h', min:0.3, max:1.2, def:0.6, step:0.06,
-    mode:'mg_kg_h' },
+    unit:'mcg/kg/min', min:4.0, max:16.0, def:8.0, step:0.5,
+    mode:'mcg_kg_min' },
 
   { id:'atracurio', name:'Atracúrio', cat:'bloqueio', color:'#a05500',
     apresentacao:'Ampola (25 mg/2,5 mL)',
     diluicao:'SG 5% — 8 amp (20 mL) + 80 mL | Vol final: 100 mL',
-    conc_display:'2 mg/mL', conc_mg_ml:2,
+    conc_display:'2 mg/mL', conc_mcg_ml:2000,
     obs:'', access:'AVP ou AVC',
-    unit:'mg/kg/h', min:0.24, max:1.2, def:0.6, step:0.06,
-    mode:'mg_kg_h' },
+    unit:'mcg/kg/min', min:5.0, max:10.0, def:7.0, step:0.5,
+    mode:'mcg_kg_min' },
 
   { id:'pancuronio', name:'Pancurônio', cat:'bloqueio', color:'#7a6000',
     apresentacao:'Ampola (10 mg/5 mL)',
     diluicao:'SF 0,9% — 8 amp (40 mL) + 60 mL | Vol final: 100 mL',
     conc_display:'0,8 mg/mL', conc_mg_ml:0.8,
     obs:'', access:'AVP ou AVC',
-    unit:'mg/kg/h', min:0.06, max:0.12, def:0.08, step:0.01,
+    unit:'mg/kg/h', min:0.01, max:0.06, def:0.03, step:0.005,
     mode:'mg_kg_h' },
 
   // OUTROS
@@ -317,16 +317,16 @@ const DRUGS = [
     conc_display:'3,6 mg/mL', conc_mg_ml:3.6,
     obs:'Max 1800 mg/24h. Preparar aspirando lentamente. Proteger da luz.',
     access:'Preferencialmente AVC',
-    unit:'mg/h', min:30, max:75, def:60, step:5,
-    mode:'mg_h_flat' },
+    unit:'mg/min', min:0.5, max:1, def:0.75, step:0.05,
+    mode:'mg_min_flat' },
 
   { id:'lidocaina', name:'Lidocaína', cat:'outros', color:'#4a7a00',
     apresentacao:'100 mg/mL (2% sem vaso)',
     diluicao:'SF 0,9% — 4 mL + 196 mL | Vol final: 200 mL',
     conc_display:'2 mg/mL', conc_mg_ml:2,
     obs:'Validade 12h.', access:'AVP ou AVC',
-    unit:'mg/kg/min', min:1, max:4, def:2, step:0.5,
-    mode:'mg_kg_min' },
+    unit:'mg/min', min:1, max:4, def:2, step:0.5,
+    mode:'mg_min_flat' },
 
   { id:'heparina', name:'Heparina', cat:'outros', color:'#006080',
     apresentacao:'Ampola (25.000 U/5 mL)',
@@ -360,8 +360,10 @@ function calcMlh(drug, dose) {
     case 'mg_kg_min':  return (dose * w * 60) / (drug.conc_mg_ml * 1000);
     case 'mcg_kg_h':   return (dose * w) / drug.conc_mcg_ml;
     case 'mg_kg_h':    return (dose * w) / drug.conc_mg_ml;
-    case 'mcg_h_flat': return dose / drug.conc_mcg_ml;
-    case 'mg_h_flat':  return dose / drug.conc_mg_ml;
+    case 'mcg_h_flat':   return dose / drug.conc_mcg_ml;
+    case 'mcg_min_flat': return (dose * 60) / drug.conc_mcg_ml;
+    case 'mg_h_flat':    return dose / drug.conc_mg_ml;
+    case 'mg_min_flat':  return (dose * 60) / drug.conc_mg_ml;
     case 'ui_kg_h':    return (dose * w) / drug.conc_ui_ml;
     case 'ui_h_flat':  return dose / drug.conc_ui_ml;
     case 'u_min_flat': return (dose * 60) / drug.conc_u_ml;
@@ -377,8 +379,10 @@ function calcTotal(drug, dose) {
     case 'mg_kg_min':  return fmt(dose * w * 60) + ' mg/h';
     case 'mcg_kg_h':   return fmt(dose * w) + ' mcg/h';
     case 'mg_kg_h':    return fmt(dose * w) + ' mg/h';
-    case 'mcg_h_flat': return fmt(dose) + ' mcg/h';
-    case 'mg_h_flat':  return fmt(dose) + ' mg/h';
+    case 'mcg_h_flat':   return fmt(dose) + ' mcg/h';
+    case 'mcg_min_flat': return fmt(dose) + ' mcg/min';
+    case 'mg_h_flat':    return fmt(dose) + ' mg/h';
+    case 'mg_min_flat':  return fmt(dose) + ' mg/min';
     case 'ui_kg_h':    return fmt(dose * w) + ' UI/h';
     case 'ui_h_flat':  return fmt(dose) + ' UI/h';
     case 'u_min_flat': return fmt(dose * 60) + ' U/h';
