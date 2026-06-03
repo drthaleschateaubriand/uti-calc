@@ -164,7 +164,7 @@ const DRUGS = [
   // VASOATIVAS
   { id:'noradrenalina', name:'Noradrenalina', cat:'vasoativa', color:'#c0001e',
     apresentacao:'Ampola (4 mg/4 mL)',
-    diluicao:'SG 5% — 5 amp (20 mL) + 180 mL',
+    diluicao:'SG 5% — 5 amp (20 mL) + 180 mL | Vol final: 200 mL',
     conc_display:'100 mcg/mL', conc_mcg_ml:100,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz. Nao usar SF 0,9%.',
     access:'AVC obrigatorio',
@@ -173,24 +173,24 @@ const DRUGS = [
 
   { id:'dobutamina', name:'Dobutamina', cat:'vasoativa', color:'#c05000',
     apresentacao:'Ampola (250 mg/20 mL)',
-    diluicao:'SG 5% — 2 amp (40 mL) + 210 mL',
+    diluicao:'SG 5% — 2 amp (40 mL) + 210 mL | Vol final: 250 mL',
     conc_display:'2000 mcg/mL', conc_mcg_ml:2000,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz.',
     access:'AVP (doses altas: AVC)',
     unit:'mcg/kg/min', min:2.5, max:10, def:5, step:0.5,
     mode:'mcg_kg_min' },
 
-  { id:'milrinone', name:'Milrinone', cat:'vasoativa', color:'#8b7200',
+  { id:'milrinone', name:'Milrinona', cat:'vasoativa', color:'#8b7200',
     apresentacao:'Ampola (10 mg/10 mL)',
-    diluicao:'SG 5% — 2 amp + 80 mL',
-    conc_display:'2 mg/mL', conc_mcg_ml:2000,
+    diluicao:'SG 5% — 2 amp (20 mL) + 80 mL | Vol final: 100 mL',
+    conc_display:'200 mcg/mL', conc_mcg_ml:200,
     obs:'', access:'AVP (doses altas: AVC)',
     unit:'mcg/kg/min', min:0.375, max:0.75, def:0.5, step:0.025,
     mode:'mcg_kg_min' },
 
   { id:'dopamina', name:'Dopamina', cat:'vasoativa', color:'#a06000',
     apresentacao:'Ampola (50 mg/10 mL)',
-    diluicao:'SG 5% — 10 amp (100 mL) + 150 mL',
+    diluicao:'SG 5% — 10 amp (100 mL) + 150 mL | Vol final: 250 mL',
     conc_display:'2000 mcg/mL', conc_mcg_ml:2000,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz.',
     access:'AVP (doses altas: AVC)',
@@ -199,7 +199,7 @@ const DRUGS = [
 
   { id:'nitroprussiato', name:'Nitroprussiato', cat:'vasoativa', color:'#1a56a0',
     apresentacao:'Ampola (50 mg/2 mL)',
-    diluicao:'SG 5% — 1 amp (2 mL) + 250 mL',
+    diluicao:'SG 5% — 1 amp (2 mL) + 248 mL | Vol final: 250 mL',
     conc_display:'200 mcg/mL', conc_mcg_ml:200,
     obs:'Proteger da luz.', access:'AVP (doses altas: AVC)',
     unit:'mcg/kg/min', min:5, max:300, def:20, step:5,
@@ -207,7 +207,7 @@ const DRUGS = [
 
   { id:'nitroglicerina', name:'Nitroglicerina', cat:'vasoativa', color:'#0e7c5b',
     apresentacao:'Ampola (25 mg/2 mL)',
-    diluicao:'SG 5% — 2 amp (10 mL) + 250 mL',
+    diluicao:'SG 5% — 2 amp (4 mL) + 246 mL | Vol final: 250 mL',
     conc_display:'200 mcg/mL', conc_mcg_ml:200,
     obs:'Proteger da luz.', access:'AVP (doses altas: AVC)',
     unit:'mcg/kg/min', min:5, max:200, def:20, step:5,
@@ -215,7 +215,7 @@ const DRUGS = [
 
   { id:'epinefrina', name:'Epinefrina', cat:'vasoativa', color:'#8b0000',
     apresentacao:'Ampola (1 mg/mL — 1 mL)',
-    diluicao:'SF 0,9% — 10 amp + 90 mL',
+    diluicao:'SF 0,9% — 10 amp (10 mL) + 90 mL | Vol final: 100 mL',
     conc_display:'100 mcg/mL', conc_mcg_ml:100,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz.',
     access:'AVC obrigatorio',
@@ -224,7 +224,7 @@ const DRUGS = [
 
   { id:'vasopressina', name:'Vasopressina', cat:'vasoativa', color:'#6a1fa0',
     apresentacao:'Ampola (20 U/mL — 1 mL)',
-    diluicao:'SF 0,9% — 1 mL + 100 mL',
+    diluicao:'SF 0,9% — 1 mL + 99 mL | Vol final: 100 mL',
     conc_display:'0,2 U/mL', conc_u_ml:0.2,
     obs:'Validade 12h.', access:'AVC obrigatorio',
     unit:'U/min', min:0.01, max:0.04, def:0.02, step:0.005,
@@ -233,7 +233,7 @@ const DRUGS = [
   // SEDATIVOS / ANALGÉSICOS
   { id:'midazolam', name:'Midazolam', cat:'sedacao', color:'#0e7c5b',
     apresentacao:'Ampola (5 mg/mL — 10 mL)',
-    diluicao:'SF 0,9% — 2 amp (20 mL) + 80 mL',
+    diluicao:'SF 0,9% — 2 amp (20 mL) + 80 mL | Vol final: 100 mL',
     conc_display:'1 mg/mL', conc_mg_ml:1,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz. Range: 0,01 a 0,6 mg/kg/h (AMIB/ANS 2011).',
     access:'AVP ou AVC',
@@ -251,7 +251,7 @@ const DRUGS = [
 
   { id:'dextrocetamina', name:'Dextrocetamina', cat:'sedacao', color:'#9c1a6a',
     apresentacao:'Ampola (500 mg/mL — 10 mL)',
-    diluicao:'SF 0,9% — 1 amp + 20 mL',
+    diluicao:'SF 0,9% — 1 amp (10 mL) + 90 mL | Vol final: 100 mL',
     conc_display:'5 mg/mL', conc_mg_ml:5,
     obs:'Proteger da luz.', access:'AVP ou AVC',
     unit:'mg/kg/h', min:0.24, max:1.2, def:0.5, step:0.06,
@@ -259,8 +259,8 @@ const DRUGS = [
 
   { id:'fentanil', name:'Fentanil', cat:'sedacao', color:'#1a56a0',
     apresentacao:'Ampola (50 mcg/mL — 10 mL)',
-    diluicao:'SF 0,9% — 2 amp (20 mL) + 80 mL',
-    conc_display:'8 mcg/mL', conc_mcg_ml:8,
+    diluicao:'SF 0,9% — 2 amp (20 mL) + 80 mL | Vol final: 100 mL',
+    conc_display:'10 mcg/mL', conc_mcg_ml:10,
     obs:'Dose total sem ajuste por peso: 50 a 500 mcg/h (AMIB/ANS 2011).',
     access:'AVP ou AVC',
     unit:'mcg/h', min:50, max:500, def:100, step:25,
@@ -268,7 +268,7 @@ const DRUGS = [
 
   { id:'dexmedetomidina', name:'Dexmedetomidina', cat:'sedacao', color:'#5a2d82',
     apresentacao:'Ampola (200 mcg/2 mL)',
-    diluicao:'SF 0,9% — 2 amp (2 mL) + 100 mL',
+    diluicao:'SF 0,9% — 2 amp (4 mL) + 96 mL | Vol final: 100 mL',
     conc_display:'4 mcg/mL', conc_mcg_ml:4,
     obs:'Range: 0,2 a 0,7 mcg/kg/h (AMIB/ANS 2011). Bradicardia e hipotensao especialmente na hipovolemia.',
     access:'AVP ou AVC',
@@ -278,7 +278,7 @@ const DRUGS = [
   // BLOQUEADORES NM
   { id:'rocuronio', name:'Rocurônio', cat:'bloqueio', color:'#c0001e',
     apresentacao:'Ampola (50 mg/5 mL)',
-    diluicao:'SG 5% — 8 amp + 60 mL',
+    diluicao:'SG 5% — 8 amp (40 mL) + 60 mL | Vol final: 100 mL',
     conc_display:'4 mg/mL', conc_mg_ml:4,
     obs:'Titular pelo TOF. Range ampliado conforme pratica clinica em SDRA grave.',
     access:'AVP ou AVC',
@@ -287,7 +287,7 @@ const DRUGS = [
 
   { id:'atracurio', name:'Atracúrio', cat:'bloqueio', color:'#a05500',
     apresentacao:'Ampola (25 mg/2,5 mL)',
-    diluicao:'SG 5% — 8 amp + 80 mL',
+    diluicao:'SG 5% — 8 amp (20 mL) + 80 mL | Vol final: 100 mL',
     conc_display:'2 mg/mL', conc_mg_ml:2,
     obs:'', access:'AVP ou AVC',
     unit:'mg/kg/h', min:0.24, max:1.2, def:0.6, step:0.06,
@@ -295,7 +295,7 @@ const DRUGS = [
 
   { id:'pancuronio', name:'Pancurônio', cat:'bloqueio', color:'#7a6000',
     apresentacao:'Ampola (10 mg/5 mL)',
-    diluicao:'SF 0,9% — 6 amp + 70 mL',
+    diluicao:'SF 0,9% — 8 amp (40 mL) + 60 mL | Vol final: 100 mL',
     conc_display:'0,8 mg/mL', conc_mg_ml:0.8,
     obs:'', access:'AVP ou AVC',
     unit:'mg/kg/h', min:0.06, max:0.12, def:0.08, step:0.01,
@@ -304,7 +304,7 @@ const DRUGS = [
   // OUTROS
   { id:'amiodarona_drip', name:'Amiodarona (Dripping)', cat:'outros', color:'#c03000',
     apresentacao:'Ampola (150 mg/3 mL)',
-    diluicao:'SG 5% — 2 amp + 100 mL',
+    diluicao:'SG 5% — 2 amp (6 mL) + 119 mL | Vol final: 125 mL',
     conc_display:'2,4 mg/mL', conc_mg_ml:2.4,
     obs:'USO IMEDIATO. Preparar aspirando lentamente. Max 600 mg total.',
     access:'Preferencialmente AVC',
@@ -313,7 +313,7 @@ const DRUGS = [
 
   { id:'amiodarona_mnt', name:'Amiodarona (Manutencao)', cat:'outros', color:'#a03000',
     apresentacao:'Ampola (150 mg/3 mL)',
-    diluicao:'SG 5% — 6 amp + 230 mL',
+    diluicao:'SG 5% — 6 amp (18 mL) + 232 mL | Vol final: 250 mL',
     conc_display:'3,6 mg/mL', conc_mg_ml:3.6,
     obs:'Max 1800 mg/24h. Preparar aspirando lentamente. Proteger da luz.',
     access:'Preferencialmente AVC',
@@ -322,7 +322,7 @@ const DRUGS = [
 
   { id:'lidocaina', name:'Lidocaína', cat:'outros', color:'#4a7a00',
     apresentacao:'100 mg/mL (2% sem vaso)',
-    diluicao:'SF 0,9% — 10 amp + 200 mL',
+    diluicao:'SF 0,9% — 4 mL + 196 mL | Vol final: 200 mL',
     conc_display:'2 mg/mL', conc_mg_ml:2,
     obs:'Validade 12h.', access:'AVP ou AVC',
     unit:'mg/kg/min', min:1, max:4, def:2, step:0.5,
@@ -330,7 +330,7 @@ const DRUGS = [
 
   { id:'heparina', name:'Heparina', cat:'outros', color:'#006080',
     apresentacao:'Ampola (25.000 U/5 mL)',
-    diluicao:'SF 0,9% — 1 amp (5 mL) + 250 mL',
+    diluicao:'SF 0,9% — 1 amp (5 mL) + 245 mL | Vol final: 250 mL',
     conc_display:'100 UI/mL', conc_ui_ml:100,
     obs:'', access:'AVP ou AVC',
     unit:'UI/kg/h', min:5, max:30, def:15, step:1,
@@ -338,7 +338,7 @@ const DRUGS = [
 
   { id:'insulina', name:'Insulina Regular', cat:'outros', color:'#1a56a0',
     apresentacao:'Ampola (10 mL)',
-    diluicao:'SF 0,9% — 100 UI + 100 mL',
+    diluicao:'SF 0,9% — 100 UI + 100 mL SF 0,9% | Vol final: 100 mL',
     conc_display:'1 UI/mL', conc_ui_ml:1,
     obs:'Validade 6h. Trocar equipo frequentemente.',
     access:'AVP ou AVC',
