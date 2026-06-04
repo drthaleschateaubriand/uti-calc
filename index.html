@@ -184,8 +184,8 @@ const DRUGS = [
     apresentacao:'Ampola (10 mg/10 mL)',
     diluicao:'SG 5% — 2 amp (20 mL) + 80 mL | Vol final: 100 mL',
     conc_display:'200 mcg/mL', conc_mcg_ml:200,
-    obs:'', access:'AVP (doses altas: AVC)',
-    unit:'mcg/kg/min', min:0.25, max:0.75, def:0.5, step:0.025,
+    obs:'Dose de ataque: 50 mcg/kg EV em 10 min. Manutencao: 0,375–0,75 mcg/kg/min.', access:'AVP (doses altas: AVC)',
+    unit:'mcg/kg/min', min:0.375, max:0.75, def:0.5, step:0.025,
     mode:'mcg_kg_min' },
 
   { id:'dopamina', name:'Dopamina', cat:'vasoativa', color:'#a06000',
@@ -194,7 +194,7 @@ const DRUGS = [
     conc_display:'2000 mcg/mL', conc_mcg_ml:2000,
     obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz.',
     access:'AVP (doses altas: AVC)',
-    unit:'mcg/kg/min', min:5.0, max:20.0, def:5.0, step:0.5,
+    unit:'mcg/kg/min', min:2.0, max:20.0, def:5.0, step:0.5,
     mode:'mcg_kg_min' },
 
   { id:'nitroprussiato', name:'Nitroprussiato', cat:'vasoativa', color:'#1a56a0',
@@ -227,7 +227,7 @@ const DRUGS = [
     diluicao:'SF 0,9% — 1 mL + 99 mL | Vol final: 100 mL',
     conc_display:'0,2 U/mL', conc_u_ml:0.2,
     obs:'Validade 12h.', access:'AVC obrigatorio',
-    unit:'UI/min', min:0.03, max:0.04, def:0.03, step:0.005,
+    unit:'UI/min', min:0.01, max:0.04, def:0.02, step:0.005,
     mode:'u_min_flat' },
 
   // SEDATIVOS / ANALGÉSICOS
