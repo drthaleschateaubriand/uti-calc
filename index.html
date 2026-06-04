@@ -166,7 +166,7 @@ const DRUGS = [
     apresentacao:'Ampola (4 mg/4 mL)',
     diluicao:'SG 5% — 5 amp (20 mL) + 180 mL | Vol final: 200 mL',
     conc_display:'100 mcg/mL', conc_mcg_ml:100,
-    obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz. Nao usar SF 0,9%.',
+    obs:'Nao usar na mesma via do Bicarbonato. Proteger da luz. Nao usar SF 0,9%. ATENCAO ao sal: dose refere-se a noradrenalina BASE. Se ampola for hemitartarato, a dose base e a metade.',
     access:'AVC obrigatorio',
     unit:'mcg/kg/min', min:0.01, max:3.0, def:0.1, step:0.01,
     mode:'mcg_kg_min' },
@@ -296,10 +296,10 @@ const DRUGS = [
   { id:'pancuronio', name:'Pancurônio', cat:'bloqueio', color:'#7a6000',
     apresentacao:'Ampola (10 mg/5 mL)',
     diluicao:'SF 0,9% — 8 amp (40 mL) + 60 mL | Vol final: 100 mL',
-    conc_display:'0,8 mg/mL', conc_mcg_ml:800,
-    obs:'', access:'AVP ou AVC',
-    unit:'mcg/kg/min', min:0.5, max:2, def:1, step:0.1,
-    mode:'mcg_kg_min' },
+    conc_display:'0,8 mg/mL', conc_mg_ml:0.8,
+    obs:'Bula nao recomenda infusao continua de rotina (uso preferencial em bolus). Se usada: 0,1-0,2 mg/kg/h. Meia-vida longa, efeito cumulativo.', access:'AVP ou AVC',
+    unit:'mg/kg/h', min:0.1, max:0.2, def:0.15, step:0.01,
+    mode:'mg_kg_h' },
 
   // OUTROS
   { id:'amiodarona_drip', name:'Amiodarona (Dripping)', cat:'outros', color:'#c03000',
